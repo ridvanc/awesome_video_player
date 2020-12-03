@@ -1,3 +1,4 @@
+#video_player_header added instead of video_player
 ## awsome_video_player
 [![pub package](https://img.shields.io/pub/v/awsome_video_player.svg)](https://pub.dartlang.org/packages/awsome_video_player)
 
