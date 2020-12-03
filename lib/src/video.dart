@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:orientation/orientation.dart';
-import 'package:video_player/video_player.dart';
+import 'package:video_player_header/video_player_header.dart';
 import 'package:screen/screen.dart';
 import 'package:connectivity/connectivity.dart';
 
@@ -23,6 +23,7 @@ class AwsomeVideoPlayer extends StatefulWidget {
   AwsomeVideoPlayer(
     this.dataSource, {
     Key key,
+    Map<String, String> headers,
     VideoPlayOptions playOptions,
     VideoStyle videoStyle,
     this.children,
@@ -39,10 +40,12 @@ class AwsomeVideoPlayer extends StatefulWidget {
     this.onpop,
   })  : playOptions = playOptions ?? VideoPlayOptions(),
         videoStyle = videoStyle ?? VideoStyle(),
+        headers = Map<String, String>(),
         super(key: key);
 
   /// 视频资源
   final dataSource;
+  final Map<String, String> headers;
 
   /// 播放自定义属性
   final VideoPlayOptions playOptions;
@@ -408,7 +411,8 @@ class _AwsomeVideoPlayerState extends State<AwsomeVideoPlayer>
     final isNetwork = netRegx.hasMatch(widget.dataSource);
     final isFile = fileRegx.hasMatch(widget.dataSource);
     if (isNetwork) {
-      return VideoPlayerController.network(widget.dataSource);
+      return VideoPlayerController.network(widget.dataSource,
+          headers: widget.headers);
     } else if (isFile) {
       return VideoPlayerController.file(widget.dataSource);
     } else {
